@@ -1,4 +1,4 @@
-export let contacts = [
+export const contacts = [
   {
     id: 1,
     name: "John Doe",
@@ -12,3 +12,8 @@ export let contacts = [
     phone: "987-654-3210",
   },
 ];
+
+export const updateContacts = (updatedContact) => {
+  contacts.length = 0;
+  contacts.push(...updatedContact);
+};

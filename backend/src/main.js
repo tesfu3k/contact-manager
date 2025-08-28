@@ -3,7 +3,7 @@ const app = express();
 import contactsRoute from "./routes/contacts.routes.js";
 
 app.use(express.json());
-app.use(contactsRoute);
+app.use("/api/contacts", contactsRoute);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
