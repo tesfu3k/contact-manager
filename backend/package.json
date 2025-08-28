@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js"
+  },
+  "keywords": [],
+  "author": "Tesfaye",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
