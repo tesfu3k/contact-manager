@@ -1,6 +1,8 @@
+import "dotenv/config";
 import express from "express";
 import contactsRoute from "./routes/contacts.routes.js";
 import authRoute from "./routes/auth.routes.js";
+import { connectToDb } from "./config/db.config.js";
 
 const app = express();
 app.use(express.json());
@@ -12,6 +14,9 @@ app.get("/api/health", (req, res) => {
 });
 
 const port = process.env.PORT || 5052;
+
+connectToDb();
+
 app.listen(port, () => {
   console.log(`server is running at -> http://localhost:${port}`);
 });
