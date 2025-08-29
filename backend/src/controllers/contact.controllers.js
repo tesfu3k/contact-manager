@@ -4,6 +4,7 @@ import { generateId } from "../utils/id.js";
 const getAllContacts = (req, res) => {
   res.json(contacts);
 };
+
 const getContact = (req, res) => {
   const id = Number(req.params.contactId);
   if (!id)
@@ -12,6 +13,7 @@ const getContact = (req, res) => {
   if (!contact) return res.status(404).json({ message: "contact not found" });
   res.json(contact);
 };
+
 const createContact = (req, res) => {
   const { name, email, phone } = req.body;
   if (!name || !email || !phone) {
@@ -32,6 +34,7 @@ const createContact = (req, res) => {
   // res json message success
   res.status(201).json({ message: "data created successfuly" });
 };
+
 const updateContact = (req, res) => {
   // grap data
   const id = Number(req.params.contactId);
