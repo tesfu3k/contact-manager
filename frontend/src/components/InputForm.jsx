@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-const InputForm = () => {
+const InputForm = ({ setDep }) => {
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +47,7 @@ const InputForm = () => {
 
     try {
       await axios.post("http://localhost:5052/api/contacts", data);
-
+      setDep((prev) => prev + 1);
       // axios automatically parses JSON response
       toast.success("Contact saved successfully!");
 
