@@ -1,6 +1,7 @@
 import axios from "axios";
-import { Mail, Pencil, Phone, Trash } from "lucide-react";
+import { Mail, Phone, Trash } from "lucide-react";
 import toast from "react-hot-toast";
+import FormEditer from "./FormEditer";
 const Card = ({ contact, setChange }) => {
   const handleDelete = async () => {
     try {
@@ -15,7 +16,7 @@ const Card = ({ contact, setChange }) => {
     }
   };
   return (
-    <div className="border border-gray-300 rounded-lg shadow-lg hover:shadow-2xl transition-all hover:scale-110 p-2">
+    <div className="border border-gray-300 rounded-lg  p-2">
       <div>
         <h1 className="text-lg font-semibold">
           {contact.firstName} {contact.lastName}
@@ -31,9 +32,7 @@ const Card = ({ contact, setChange }) => {
         >
           <Trash className="size-5 text-red-600" />
         </button>
-        <button className="bg-blue-400/20 size-8 rounded-full flex justify-center items-center cursor-pointer hover:bg-blue-400/40 active:scale-95 transition-all ">
-          <Pencil className="size-5 text-blue-600" />
-        </button>
+        <FormEditer contact={contact} setChange={setChange} />
         <a
           href={`tel:${contact.phone}`}
           className="bg-green-400/20 size-8 rounded-full flex justify-center items-center cursor-pointer hover:bg-green-400/40 active:scale-95 transition-all "

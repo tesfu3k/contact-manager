@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 const App = () => {
   const [dep, setDep] = useState(0); // for dependencey array control
   return (
-    <div className="bg-gray-300 min-h-screen">
+    <div className="bg-gray-300 min-h-screen relative">
       <Toaster position="bottom-center" />
       <NavBar />
       <InputForm setDep={setDep} />
