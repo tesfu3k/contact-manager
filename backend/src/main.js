@@ -5,6 +5,8 @@ import authRoute from "./routes/auth.routes.js";
 import { connectToDb } from "./config/db.config.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { protectRoute } from "./middlewares/protect.middleware.js";
+
 const app = express();
 app.use(express.json());
 app.use(
@@ -14,6 +16,7 @@ app.use(
 );
 
 app.use(cookieParser());
+app.use("/api/contacts", protectRoute);
 
 // route
 app.use("/api/auth", authRoute);

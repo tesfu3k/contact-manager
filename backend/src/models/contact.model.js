@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 
+/**
+ * userId:
+ */
 const contactSchema = mongoose.Schema(
   {
+    userId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User", //this name came from user model to maker relation between them 1 -> 2
+      required: true,
+    },
     firstName: { type: String, required: true },
     lastName: String,
     email: {

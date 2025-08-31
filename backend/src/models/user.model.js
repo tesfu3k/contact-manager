@@ -16,6 +16,6 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const userModel = mongoose.model("User", userSchema);
+const userModel = mongoose.model("User", userSchema); // start with Uppercase then dont add s at the end
 
 export default userModel;

@@ -90,16 +90,18 @@ const signIn = async (req, res) => {
     const user = await userModel.findOne({ email: email });
     if (!user)
       return res.status(400).json({
-        message: "incorrect email adrress",
+        message: "incorrect password or email adrress",
         success: false,
         data: null,
       });
     const isCorrectPassword = await bcrypt.compare(password, user.password);
 
     if (!isCorrectPassword)
-      return res
-        .status(400)
-        .json({ message: "incorrect password", success: false, data: null });
+      return res.status(400).json({
+        message: "incorrect password or email adrress",
+        success: false,
+        data: null,
+      });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "15d",
@@ -144,29 +146,9 @@ const currentUser = async (req, res) => {
    * 6 check the user from the db
    * 7 send the user info
    */
-
-  const token = req.cookies.token;
-
-  if (!token)
-    return res
-      .status(401)
-      .json({ message: "unauthorized user", success: false, data: null });
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (!decoded.id)
-      return res
-        .status(401)
-        .json({ message: "unauthorized", success: false, data: null });
-
-    const user = await userModel.findById(decoded.id);
-
-    if (!user)
-      return res
-        .status(401)
-        .json({ message: "unauthorized", success: false, data: null });
-
+    const { userId } = req; // it comes from protect.middleware;
+    const user = await userModel.findById(userId);
     const { password, ...userWithoutPassword } = user._doc;
 
     res.status(200).json({

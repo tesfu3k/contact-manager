@@ -1,10 +1,14 @@
-import { contacts, updateContacts } from "../data/contacts.js";
-import { generateId } from "../utils/id.js";
+import jwt from "jsonwebtoken";
 import contactModel from "../models/contact.model.js";
+import userModel from "../models/user.model.js";
 
 const getAllContacts = async (req, res) => {
+  const { userId } = req;
+
   try {
-    const contacts = await contactModel.find();
+    // TODO: who it the user trying to get the contact
+
+    const contacts = await contactModel.find({ userId });
     res
       .status(200)
       .json({ message: "all contact", success: true, data: { contacts } });
@@ -25,7 +29,7 @@ const getContact = async (req, res) => {
         data: null,
       });
     //const contact =contactModel.find({_id:id}) [{...}]
-    const contact = await contactModel.findById(id); // {...}
+    const contact = await contactModel.findOne({ _id: id, userId: req.userId }); // {...}
 
     if (!contact)
       return res
@@ -53,6 +57,7 @@ const createContact = async (req, res) => {
       lastName,
       email,
       phone,
+      userId: req.userId, // const {userId} = req,    it came from protect.middleware
     });
 
     res.status(201).json({
@@ -85,14 +90,32 @@ const updateContact = async (req, res) => {
         success: false,
         data: null,
       });
+    const { userId } = req;
+
+    const isContactExist = await contactModel.findOne({
+      _id: id,
+      userId,
+    });
+
+    console.log(isContactExist, userId);
+
+    if (!isContactExist)
+      return res
+        .status(400)
+        .json({ message: "contact is not found", success: false, data: null });
+
     // update the target contact data
     const updatedObj = {};
     if (firstName) updatedObj.firstName = firstName;
     if (lastName) updatedObj.lastName = lastName;
     if (email) updatedObj.email = email;
     if (phone) updatedObj.phone = phone;
+
     // TODO first check if the id is exist
-    const contact = await contactModel.updateOne({ _id: id }, updatedObj);
+    const contact = await contactModel.updateOne(
+      { _id: id, userId },
+      updatedObj
+    );
 
     res.status(200).json({
       message: "the contact has been updated successfully",
@@ -107,10 +130,18 @@ const updateContact = async (req, res) => {
 const deletedContact = async (req, res) => {
   try {
     const id = req.params.contactId;
+    const { userId } = req;
+
     if (!id)
       res
         .status(400)
-        .json({ message: "valid is required", success: false, data: null });
+        .json({ message: "valid Id is required", success: false, data: null });
+
+    const isContactExist = contactModel.findOne({ _id: id, userId });
+    if (!isContactExist)
+      return res
+        .status(400)
+        .json({ message: "contact not found", success: true, data: null });
 
     const deletedContact = await contactModel.findByIdAndDelete(id);
     res.status(200).json({
