@@ -65,7 +65,7 @@ const InputForm = ({ setDep }) => {
   };
 
   return (
-    <div className="bg-white m-10 rounded-4xl p-4 ">
+    <div className="bg-white m-10 rounded-4xl p-4 lg:p-10 ">
       <h1 className="text-center font-semibold text-2xl">Creat New Contact</h1>
       <div className="flex flex-col lg:flex-row items-center">
         {" "}

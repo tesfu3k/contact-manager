@@ -4,6 +4,7 @@ import contactsRoute from "./routes/contacts.routes.js";
 import authRoute from "./routes/auth.routes.js";
 import { connectToDb } from "./config/db.config.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 const app = express();
 app.use(express.json());
 app.use(
@@ -11,6 +12,10 @@ app.use(
     origin: ["http://localhost:5173", "http://localhost:4173"],
   })
 );
+
+app.use(cookieParser());
+
+// route
 app.use("/api/auth", authRoute);
 app.use("/api/contacts", contactsRoute);
 
