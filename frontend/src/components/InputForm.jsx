@@ -46,7 +46,9 @@ const InputForm = ({ setDep }) => {
     }
 
     try {
-      await axios.post("http://localhost:5052/api/contacts", data);
+      await axios.post("http://localhost:5052/api/contacts", data, {
+        withCredentials: true,
+      });
       setDep((prev) => prev + 1);
       // axios automatically parses JSON response
       toast.success("Contact saved successfully!");

@@ -28,7 +28,8 @@ const FormEditer = ({ contact, setChange }) => {
     try {
       await axios.put(
         "http://localhost:5052/api/contacts/" + contact._id,
-        update
+        update,
+        { withCredentials: true }
       );
       toast.success("Contacts updated successfully");
       setChange((a) => a + 1);
