@@ -14,7 +14,7 @@ const NavBar = () => {
   const { user, setUser } = useContext(AuthContext);
   const handleSignOut = async () => {
     try {
-      await axios.get("http://localhost:5052/api/auth/sign-out", {
+      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/sign-out`, {
         withCredentials: true,
       });
       setUser(null);

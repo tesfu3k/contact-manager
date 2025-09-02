@@ -7,9 +7,12 @@ const Body = ({ dep, setDep }) => {
 
   useEffect(() => {
     const loadContact = async () => {
-      const { data } = await axios.get("http://localhost:5052/api/contacts", {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        import.meta.env.VITE_BACKEND_URL + "/api/contacts",
+        {
+          withCredentials: true,
+        }
+      );
       setData(data.data.contacts);
     };
     loadContact();

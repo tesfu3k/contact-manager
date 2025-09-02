@@ -49,9 +49,12 @@ const App = () => {
    */
   useEffect(() => {
     const loadUser = async () => {
-      const { data } = await axios.get("http://localhost:5052/api/auth/me", {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        import.meta.env.VITE_BACKEND_URL + "/api/auth/me",
+        {
+          withCredentials: true,
+        }
+      );
       if (data.success) setUser(data.data.user);
     };
     loadUser();

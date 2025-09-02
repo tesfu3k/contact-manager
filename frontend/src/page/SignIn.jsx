@@ -40,7 +40,7 @@ const SignIn = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5052/api/auth/sign-in",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/sign-in`,
         regUser,
         {
           validateStatus: (status) => status < 500,

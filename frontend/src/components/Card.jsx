@@ -5,9 +5,12 @@ import FormEditer from "./FormEditer";
 const Card = ({ contact, setChange }) => {
   const handleDelete = async () => {
     try {
-      await axios.delete("http://localhost:5052/api/contacts/" + contact._id, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/contacts/${contact._id}`,
+        {
+          withCredentials: true,
+        }
+      );
       setChange((prev) => prev + 1);
       toast.success("Contact deleted successfully!");
     } catch (error) {

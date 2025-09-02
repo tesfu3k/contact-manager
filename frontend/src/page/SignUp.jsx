@@ -39,7 +39,7 @@ const SignUp = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5052/api/auth/sign-up",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/sign-up`,
         userData,
         {
           validateStatus: (status) => status < 500,

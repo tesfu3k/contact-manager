@@ -27,7 +27,8 @@ const FormEditer = ({ contact, setChange }) => {
       return toast.error("please enter valid contact information");
     try {
       await axios.put(
-        "http://localhost:5052/api/contacts/" + contact._id,
+        `${import.meta.env.VITE_BACKEND_URL}/api/contacts/${contact._id}
+          `,
         update,
         { withCredentials: true }
       );
